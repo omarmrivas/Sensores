@@ -19,6 +19,7 @@ public class TestPlotter : MonoBehaviour {
         // Add data to graphs
         PlotManager.Instance.PlotAdd("MouseX", Input.mousePosition.x);
         PlotManager.Instance.PlotAdd("MouseY", Input.mousePosition.y);
+        Debug.Log("(" + Input.mousePosition.x + ", " + Input.mousePosition.y + ")");
 	}
 
 

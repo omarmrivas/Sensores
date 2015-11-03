@@ -84,6 +84,8 @@ public class Lectura : MonoBehaviour {
         puerto.ReadTimeout = 500;
 
         puerto.Open();
+        inicializarPloter();
+//        DETENER_gui();
 	}
 
     // Update is called once per frame
@@ -96,6 +98,12 @@ public class Lectura : MonoBehaviour {
         {
             ECG_lectura();
         }
+    }
+
+    public void inicializarPloter()
+    {
+        //  Create a new graph named "ECG", with a range of 0 to 30000, colour red at position 100,100
+        PlotManager.Instance.PlotCreate("ECG", 0, 30000, Color.red, new Vector2(100, 100));
     }
 
     public bool DETENER_comando()
@@ -195,7 +203,12 @@ public class Lectura : MonoBehaviour {
 
             int[] datos = new int[bloque.Length / 2];
             for (int i = 0; i < bloque.Length; i += 2)
+            {
                 datos[i / 2] = (bloque[i] << 8) + (bloque[i + 1]);
+                if (datos[i / 2] < 30000 &
+                    datos[i / 2] > 0)
+                    PlotManager.Instance.PlotAdd("ECG", datos[i / 2]);
+            }
 
             Debug.Log("Datos: " + ArrayToString(datos));
             Debug.Log("Último dato: " + bloque[bloque.Length - 1]);
