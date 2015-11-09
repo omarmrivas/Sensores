@@ -9,6 +9,7 @@ public class Lectura : MonoBehaviour {
     bool DETENER_BANDERA = false;
 
     bool ECG_LECTURA = false;
+    bool SPO2_LECTURA = false;
 
     byte REQ = 0x52;
     byte CFM = 0x43;
@@ -74,14 +75,17 @@ public class Lectura : MonoBehaviour {
     byte ERROR_BUSY = 0x01;
     byte ERROR_INVALID_OPCODE = 0x02;
 
+// URLs
+    string SPO2_url = "http://192.168.2.239/cgi-bin/SPO2.pl";
+
 	// Use this for initialization
 	void Start () {
         string nombre_puerto = PlayerPrefs.GetString("Puerto", "no hay puerto");
         Debug.Log("Monitoreando puerto: " + nombre_puerto);
         puerto = new SerialPort(nombre_puerto, 115200, Parity.None, 8, StopBits.One);
 //        puerto.DataReceived += new SerialDataReceivedEventHandler(recepcion_datos);
-        puerto.WriteTimeout = 500;
-        puerto.ReadTimeout = 500;
+        puerto.WriteTimeout = 10000;
+        puerto.ReadTimeout = 10000;
 
         puerto.Open();
         inicializarPloter();
@@ -98,12 +102,18 @@ public class Lectura : MonoBehaviour {
         {
             ECG_lectura();
         }
+
+        if (SPO2_LECTURA)
+        {
+            SPO2_lectura();
+        }
     }
 
     public void inicializarPloter()
     {
         //  Create a new graph named "ECG", with a range of 0 to 30000, colour red at position 100,100
         PlotManager.Instance.PlotCreate("ECG", 0, 30000, Color.red, new Vector2(100, 100));
+        PlotManager.Instance.PlotCreate("SPO2", 0, 30000, Color.red, new Vector2(100, 100));
     }
 
     public bool DETENER_comando()
@@ -157,7 +167,25 @@ public class Lectura : MonoBehaviour {
         }
     }
 
-    public int leer(string debug) {
+    public void SPO2_comando()
+    {
+        byte[] mensaje = new byte[] { REQ, POX_START_MEASUREMENT };
+        puerto.Write(mensaje, 0, 2);
+
+        Debug.Log("Datos enviados para SPO2...");
+
+        if (confirmacion())
+        {
+            int ind = leer("IND (Packet Type): ");
+
+            if (ind == IND)
+                SPO2_LECTURA = true;
+            else SPO2_LECTURA = false;
+        }
+    }
+
+    public int leer(string debug)
+    {
         int i = puerto.ReadByte();
         string i_str = String.Format("{0,10:G} {0,10:X}", i);
         Debug.Log(debug + i_str);
@@ -215,6 +243,57 @@ public class Lectura : MonoBehaviour {
 //            ECG_LECTURA = false;
         }
         else ECG_LECTURA = false;
+    }
+
+    void SPO2_lectura()
+    {
+        Debug.Log("Empezando a leer bloque SPO2...");
+
+        int command_opcode = leer("Command Opcode: ");
+        if (command_opcode == POX_MEASUREMENT_COMPLETE_OK)
+        {
+            int length = leer("LENGTH: ");
+
+            // leer desde el dato 0 hasta el dato n
+            int[] bloque = leerBloque(length);
+
+            Debug.Log("Datos: " + ArrayToString(bloque));
+
+            if (length == 2)
+            {
+                Debug.Log("SPO2: " + bloque[0]);
+                Debug.Log("Heart Rate: " + bloque[1]);
+                StartCoroutine(SPO2_DB(10, 1, bloque[0]));
+                StartCoroutine(SPO2_DB(10, 2, bloque[1]));
+            }
+
+            SPO2_LECTURA = false;
+        }
+        else SPO2_LECTURA = false;
+    }
+
+    public IEnumerator SPO2_DB(int IdExploracion, int IdVariable, int Valor)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("IdExploracion", IdExploracion.ToString());
+        form.AddField("IdVariable", IdVariable.ToString());
+        form.AddField("Valor", Valor.ToString());
+
+        WWW download = new WWW(SPO2_url, form);
+
+        // Wait until the download is done
+        yield return download;
+
+        if (!string.IsNullOrEmpty(download.error))
+        {
+            Debug.Log("Error downloading: " + download.error);
+        }
+        else
+        {
+            // Mostrar resultado
+            Debug.Log(download.text);
+        }
+//        return null;
     }
 
     public static string ArrayToString(int[] arr)
