@@ -11,69 +11,69 @@ public class Lectura : MonoBehaviour {
     bool ECG_LECTURA = false;
     bool SPO2_LECTURA = false;
 
-    byte REQ = 0x52;
-    byte CFM = 0x43;
-    byte IND = 0x69;
+    public static readonly byte REQ = 0x52;
+    public static readonly byte CFM = 0x43;
+    public static readonly byte IND = 0x69;
 
-	byte GLU_START_MEASUREMENT = 0x00;
-	byte GLU_ABORT_MEASUREMENT = 0x01;
-	byte GLU_START_CALIBRATION = 0x02;
-	byte GLU_BLOOD_DETECTED = 0x03;
-	byte GLU_MEASUREMENT_COMPLETE_OK = 0x04;
-	byte GLU_CALIBRATION_COMPLETE_OK = 0x05;
-	
-	byte BPM_START_MEASUREMENT = 0x06;
-	byte BPM_ABORT_MEASUREMENT = 0x07;
-	byte BPM_MEASUREMENT_COMPLETE_OK  = 0x08;
-	byte BPM_MEASUREMENT_ERROR = 0x09;
+    public static readonly byte GLU_START_MEASUREMENT = 0x00;
+    public static readonly byte GLU_ABORT_MEASUREMENT = 0x01;
+    public static readonly byte GLU_START_CALIBRATION = 0x02;
+    public static readonly byte GLU_BLOOD_DETECTED = 0x03;
+    public static readonly byte GLU_MEASUREMENT_COMPLETE_OK = 0x04;
+    public static readonly byte GLU_CALIBRATION_COMPLETE_OK = 0x05;
+
+    public static readonly byte BPM_START_MEASUREMENT = 0x06;
+    public static readonly byte BPM_ABORT_MEASUREMENT = 0x07;
+    public static readonly byte BPM_MEASUREMENT_COMPLETE_OK = 0x08;
+    public static readonly byte BPM_MEASUREMENT_ERROR = 0x09;
 	
 	//leak test	
-	byte BPM_START_LEAK_TEST = 0x0A;
-	byte BPM_ABORT_LEAK_TEST = 0x0B;
-	byte BPM_LEAK_TEST_COMPLETE = 0x0C;
-	
-	byte ECG_HEART_RATE_START_MEASUREMENT = 0x0D;
-	byte ECG_HEART_RATE_ABORT_MEASUREMENT = 0x0E;
-	byte ECG_HEART_RATE_MEASUREMENT_COMPLETE_OK = 0x0F;
-	byte ECG_HEART_RATE_MEASUREMENT_ERROR = 0x10;
-	byte ECG_HEART_BEAT_OCCURRED = 0x11;
-	
-	byte ECG_DIAGNOSTIC_MODE_START_MEASUREMENT = 0x12;
-	byte ECG_DIAGNOSTIC_MODE_STOP_MEASUREMENT = 0x13;
-	byte ECG_DIAGNOSTIC_MODE_NEW_DATA_READY = 0x14;
-	
-	byte TMP_READ_TEMPERATURE = 0x15;
-	byte HGT_READ_HEIGHT = 0x16;
-	byte WGT_READ_WEIGHT = 0x17;
-	
-	byte SPR_START_MEASUREMENT = 0x18;
-	byte SPR_ABORT_MEASUREMENT = 0x19;
-	byte SPR_MEASUREMENT_COMPLETE_OK = 0x1A;
-	byte SPR_MEASUREMENT_ERROR = 0x1B;
+    public static readonly byte BPM_START_LEAK_TEST = 0x0A;
+    public static readonly byte BPM_ABORT_LEAK_TEST = 0x0B;
+    public static readonly byte BPM_LEAK_TEST_COMPLETE = 0x0C;
 
-	byte SPR_DIAGNOSTIC_MODE_START_MEASUREMENT = 0x1C;
-	byte SPR_DIAGNOSTIC_MODE_STOP_MEASUREMENT = 0x1D;
-	byte SPR_DIAGNOSTIC_MODE_NEW_DATA_READY = 0x1E;
-	byte SPR_DIAGNOSTIC_MODE_MEASUREMENT_COMPLETE_OK = 0x1F;
-	byte SPR_DIAGNOSTIC_MODE_MEASUREMENT_ERROR = 0x20;
+    public static readonly byte ECG_HEART_RATE_START_MEASUREMENT = 0x0D;
+    public static readonly byte ECG_HEART_RATE_ABORT_MEASUREMENT = 0x0E;
+    public static readonly byte ECG_HEART_RATE_MEASUREMENT_COMPLETE_OK = 0x0F;
+    public static readonly byte ECG_HEART_RATE_MEASUREMENT_ERROR = 0x10;
+    public static readonly byte ECG_HEART_BEAT_OCCURRED = 0x11;
 
-	
-	byte POX_START_MEASUREMENT = 0x21;
-	byte POX_ABORT_MEASUREMENT = 0x22;
-	byte POX_MEASUREMENT_COMPLETE_OK = 0x23;
-	byte POX_MEASUREMENT_ERROR = 0x24;
-	
-	byte POX_DIAGNOSTIC_MODE_START_MEASUREMENT = 0x25;
-	byte POX_DIAGNOSTIC_MODE_STOP_MEASUREMENT = 0x26;
-	byte POX_DIAGNOSTIC_MODE_NEW_DATA_READY = 0x27;
-		
-	byte BPM_SEND_PRESSURE_VALUE_TO_PC = 0x28;
-	byte BPM_DATA_READY = 0xFF;
+    public static readonly byte ECG_DIAGNOSTIC_MODE_START_MEASUREMENT = 0x12;
+    public static readonly byte ECG_DIAGNOSTIC_MODE_STOP_MEASUREMENT = 0x13;
+    public static readonly byte ECG_DIAGNOSTIC_MODE_NEW_DATA_READY = 0x14;
+
+    public static readonly byte TMP_READ_TEMPERATURE = 0x15;
+    public static readonly byte HGT_READ_HEIGHT = 0x16;
+    public static readonly byte WGT_READ_WEIGHT = 0x17;
+
+    public static readonly byte SPR_START_MEASUREMENT = 0x18;
+    public static readonly byte SPR_ABORT_MEASUREMENT = 0x19;
+    public static readonly byte SPR_MEASUREMENT_COMPLETE_OK = 0x1A;
+    public static readonly byte SPR_MEASUREMENT_ERROR = 0x1B;
+
+    public static readonly byte SPR_DIAGNOSTIC_MODE_START_MEASUREMENT = 0x1C;
+    public static readonly byte SPR_DIAGNOSTIC_MODE_STOP_MEASUREMENT = 0x1D;
+    public static readonly byte SPR_DIAGNOSTIC_MODE_NEW_DATA_READY = 0x1E;
+    public static readonly byte SPR_DIAGNOSTIC_MODE_MEASUREMENT_COMPLETE_OK = 0x1F;
+    public static readonly byte SPR_DIAGNOSTIC_MODE_MEASUREMENT_ERROR = 0x20;
+
+
+    public static readonly byte POX_START_MEASUREMENT = 0x21;
+    public static readonly byte POX_ABORT_MEASUREMENT = 0x22;
+    public static readonly byte POX_MEASUREMENT_COMPLETE_OK = 0x23;
+    public static readonly byte POX_MEASUREMENT_ERROR = 0x24;
+
+    public static readonly byte POX_DIAGNOSTIC_MODE_START_MEASUREMENT = 0x25;
+    public static readonly byte POX_DIAGNOSTIC_MODE_STOP_MEASUREMENT = 0x26;
+    public static readonly byte POX_DIAGNOSTIC_MODE_NEW_DATA_READY = 0x27;
+
+    public static readonly byte BPM_SEND_PRESSURE_VALUE_TO_PC = 0x28;
+    public static readonly byte BPM_DATA_READY = 0xFF;
 
 // Códigos de ERROR
-    byte ERROR_OK = 0x00;
-    byte ERROR_BUSY = 0x01;
-    byte ERROR_INVALID_OPCODE = 0x02;
+    public static readonly byte ERROR_OK = 0x00;
+    public static readonly byte ERROR_BUSY = 0x01;
+    public static readonly byte ERROR_INVALID_OPCODE = 0x02;
 
 // URLs
     string SPO2_url = "http://192.168.2.239/cgi-bin/SPO2.pl";
@@ -192,12 +192,51 @@ public class Lectura : MonoBehaviour {
         return i;
     }
 
+    public static int leer(SerialPort puerto, string debug)
+    {
+        int i = puerto.ReadByte();
+        string i_str = String.Format("{0,10:G} {0,10:X}", i);
+        Debug.Log(debug + i_str);
+        return i;
+    }
+
     public int[] leerBloque(int n)
     {
         int[] bloque = new int[n];
         for (int i = 0; i < bloque.Length; i++)
             bloque[i] = puerto.ReadByte();
         return bloque;
+    }
+
+    public static int[] leerBloque(SerialPort puerto, int n)
+    {
+        int[] bloque = new int[n];
+        for (int i = 0; i < bloque.Length; i++)
+            bloque[i] = puerto.ReadByte();
+        return bloque;
+    }
+
+    public static SerialPort iniciarPuerto()
+    {
+        if (PlayerPrefs.HasKey("Puerto"))
+        {
+            string nombre_puerto = PlayerPrefs.GetString("Puerto");
+            Debug.Log("Abriendo puerto: " + nombre_puerto);
+            SerialPort puerto = new SerialPort(nombre_puerto, 115200, Parity.None, 8, StopBits.One);
+            puerto.WriteTimeout = 15000;
+            puerto.ReadTimeout = 15000;
+
+            puerto.Open();
+            return puerto;
+        }
+
+        return null;
+    }
+
+    public static void cerrarPuerto(SerialPort puerto)
+    {
+        Debug.Log("Cerrando puerto... ");
+        puerto.Close();
     }
 
     public bool confirmacion()
@@ -210,6 +249,21 @@ public class Lectura : MonoBehaviour {
             int error = leer("Error: ");
 
             return error == ERROR_OK;
+        }
+        return false;
+    }
+
+    public static bool confirmacion(SerialPort puerto)
+    {
+        int cfm = Lectura.leer(puerto, "CFM: ");
+
+        if (cfm == Lectura.CFM)
+        {
+            int start = Lectura.leer(puerto, "START: ");
+            int length = Lectura.leer(puerto, "Length: ");
+            int error = Lectura.leer(puerto, "Error: ");
+
+            return error == Lectura.ERROR_OK;
         }
         return false;
     }

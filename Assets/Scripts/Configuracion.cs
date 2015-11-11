@@ -7,9 +7,6 @@ public class Configuracion : MonoBehaviour
 {
     string[] puertos;
     [SerializeField] Dropdown puertos_gui;
-    [SerializeField] InputField nombre_gui;
-    [SerializeField] InputField apellidos_gui;
-    [SerializeField] InputField clave_gui;
 
     // Use this for initialization
     void Start()
@@ -23,8 +20,6 @@ public class Configuracion : MonoBehaviour
 
         for (int i = 0; i < puertos.Length; i++)
         {
-            int index = i;
-
             Dropdown.OptionData item = new Dropdown.OptionData(puertos[i]);
             puertos_gui.options.Add(item);
         }
@@ -46,15 +41,10 @@ public class Configuracion : MonoBehaviour
         int index = puertos_gui.value;
 
         PlayerPrefs.SetString("Puerto", puertos[index]);
-        PlayerPrefs.SetString("Nombre", nombre_gui.text);
-        PlayerPrefs.SetString("Apellidos", apellidos_gui.text);
-        PlayerPrefs.SetString("Clave", clave_gui.text);
+        PlayerPrefs.SetString(Estado.EstadoAnterior, "Configuracion");
 
         Debug.Log("Puerto Seleccionado: " + puertos[index]);
-        Debug.Log("Nombre: " + nombre_gui.text);
-        Debug.Log("Apellidos: " + apellidos_gui.text);
-        Debug.Log("Clave: " + clave_gui.text);
 
-        Application.LoadLevel("Adquisicion");
+        Application.LoadLevel("Pacientes");
     }
 }

@@ -11,7 +11,8 @@ public class IngresarMedico : MonoBehaviour {
     // URLs
     private string MEDICOS_url = "http://192.168.2.239/cgi-bin/medicos.pl";
 
-    public void Start()
+    // Use this for initialization
+    void Start()
     {
         PlayerPrefs.DeleteAll();
     }
@@ -54,6 +55,9 @@ public class IngresarMedico : MonoBehaviour {
                 PlayerPrefs.SetString(Estado.MedicoNombre, campos[1]);
                 PlayerPrefs.SetString(Estado.MedicoApellidoP, campos[2]);
                 PlayerPrefs.SetString(Estado.MedicoApellidoM, campos[3]);
+
+                PlayerPrefs.SetString(Estado.EstadoAnterior, "IngresoMedico");
+                Application.LoadLevel("Configuracion");
             }
         }
     }
