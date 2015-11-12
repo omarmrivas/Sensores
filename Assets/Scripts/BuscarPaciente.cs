@@ -102,6 +102,8 @@ public class BuscarPaciente : MonoBehaviour {
                 PlayerPrefs.SetString(Estado.PacienteApellidoM, campos[3]);
                 PlayerPrefs.SetString(Estado.PacienteNombre, campos[4]);
 
+                yield return StartCoroutine(ECG_BPM_SPO2_GLU.crearExploracion());
+
                 Application.LoadLevel("Adquisicion");
             }
         }

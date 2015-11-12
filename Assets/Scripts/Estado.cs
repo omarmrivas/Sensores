@@ -1,10 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Estado : MonoBehaviour {
+    // Seguimiento de escenas
+    private static Stack<string> escenas = new Stack<string>();
+    public static void PushEscena(string escena)
+    {
+        escenas.Push(escena);
+    }
+    public static string PopEscena()
+    {
+        return escenas.Pop();
+    }
+
+    // Manejo de puertos
+    public static readonly string PUERTO = "PUERTO";
+    public static readonly string SINPUERTO = "SINPUERTO";
+
     // Variables
     public static readonly string SPO2 = "SPO2";
     public static readonly string RITMOCARDIACO = "RITMOCARDIACO";
+    public static readonly string GLU = "GLU";
+
+    public static readonly int ID_SPO2 = 0;
+    public static readonly int ID_TAS = 1;
+    public static readonly int ID_TAD = 2;
+    public static readonly int ID_FREC_CARDIACA= 3;
+    public static readonly int ID_FREC_RESPIRATORIA = 4;
+    public static readonly int ID_TEMPERATURA = 5;
+    public static readonly int ID_TALLA = 6;
+    public static readonly int ID_PESO = 7;
+    public static readonly int ID_GLU = 8;
 
     // Estado Anterior
     public static readonly string EstadoAnterior = "EstadoAnterior";
@@ -31,5 +58,8 @@ public class Estado : MonoBehaviour {
     public static readonly string PacienteGenero = "PacienteGenero";
     public static readonly string PacienteIVSA = "PacienteIVSA";
     public static readonly string PacienteIdMPF = "PacienteIdMPF";
+
+    // Exploracion Física
+    public static readonly string ExploracionId = "ExploracionId";
 
 }

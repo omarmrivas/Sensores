@@ -56,8 +56,9 @@ public class IngresarMedico : MonoBehaviour {
                 PlayerPrefs.SetString(Estado.MedicoApellidoP, campos[2]);
                 PlayerPrefs.SetString(Estado.MedicoApellidoM, campos[3]);
 
-                PlayerPrefs.SetString(Estado.EstadoAnterior, "IngresoMedico");
-                Application.LoadLevel("Configuracion");
+//                PlayerPrefs.SetString(Estado.EstadoAnterior, "IngresoMedico");
+                Estado.PushEscena("IngresoMedico");
+                Application.LoadLevel("Pacientes");
             }
         }
     }

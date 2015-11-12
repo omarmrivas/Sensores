@@ -70,7 +70,8 @@ public class AgregarPaciente : MonoBehaviour {
             {
                 string[] campos = download.text.Split(':');
                 PlayerPrefs.SetString(Estado.PacienteIdentificacion, campos[0]);
-                PlayerPrefs.SetString(Estado.EstadoAnterior, "Pacientes");
+                yield return StartCoroutine(ECG_BPM_SPO2_GLU.crearExploracion());
+
                 Application.LoadLevel("Adquisicion");
             }
         }

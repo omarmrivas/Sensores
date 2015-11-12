@@ -3,8 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.IO.Ports;
 
-public class Configuracion : MonoBehaviour
-{
+public class SeleccionarPuerto : MonoBehaviour {
     string[] puertos;
     [SerializeField] Dropdown puertos_gui;
 
@@ -28,6 +27,10 @@ public class Configuracion : MonoBehaviour
         puertos = new string[datos.Length];
         for (int i = 0; i < datos.Length; i++)
             puertos[i] = datos[i].text;
+
+        if (PlayerPrefs.HasKey(Estado.PUERTO) &&
+            puertos_gui.options.Exists(opt => opt.text == PlayerPrefs.GetString(Estado.PUERTO)))
+            puertos_gui.value = puertos_gui.options.FindIndex(opt => opt.text == PlayerPrefs.GetString(Estado.PUERTO));
     }
 
     string[] obtenerPuertos()
@@ -36,16 +39,11 @@ public class Configuracion : MonoBehaviour
         //		return new string[] {"COM1", "COM2", "COM3"};
     }
 
-    public void Empezar()
+    public void Actualizar()
     {
         int index = puertos_gui.value;
 
-        PlayerPrefs.SetString("Puerto", puertos[index]);
-//        PlayerPrefs.SetString(Estado.EstadoAnterior, "Configuracion");
-        Estado.PushEscena("Configuracion");
-
+        PlayerPrefs.SetString(Estado.PUERTO, puertos[index]);
         Debug.Log("Puerto Seleccionado: " + puertos[index]);
-
-        Application.LoadLevel("Pacientes");
     }
 }

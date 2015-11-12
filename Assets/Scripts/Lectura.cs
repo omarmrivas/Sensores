@@ -80,7 +80,7 @@ public class Lectura : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        string nombre_puerto = PlayerPrefs.GetString("Puerto", "no hay puerto");
+        string nombre_puerto = PlayerPrefs.GetString(Estado.PUERTO, "no hay puerto");
         Debug.Log("Monitoreando puerto: " + nombre_puerto);
         puerto = new SerialPort(nombre_puerto, 115200, Parity.None, 8, StopBits.One);
 //        puerto.DataReceived += new SerialDataReceivedEventHandler(recepcion_datos);
@@ -218,9 +218,9 @@ public class Lectura : MonoBehaviour {
 
     public static SerialPort iniciarPuerto()
     {
-        if (PlayerPrefs.HasKey("Puerto"))
+        if (PlayerPrefs.HasKey(Estado.PUERTO))
         {
-            string nombre_puerto = PlayerPrefs.GetString("Puerto");
+            string nombre_puerto = PlayerPrefs.GetString(Estado.PUERTO);
             Debug.Log("Abriendo puerto: " + nombre_puerto);
             SerialPort puerto = new SerialPort(nombre_puerto, 115200, Parity.None, 8, StopBits.One);
             puerto.WriteTimeout = 15000;
