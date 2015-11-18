@@ -29,10 +29,10 @@ my $dbh = DBI->connect( 'DBI:mysql:bd_proyecto_cuerpo', 'dinorahcab', 'dinorahca
     || die "Could not connect to database: $DBI::errstr";
 
 # Insert the player score if there are any
-if( $IdExploracion && $IdVariable && $Valor) {
+# if( $IdExploracion && $IdVariable && $Valor) {
 $dbh->do( "insert into Mediciones (IdExploracion, IdVariable, Valor) values(?,?,?)",
 	  undef, $IdExploracion, $IdVariable, $Valor);
-}
+# }
 
 # Fetch the high scores
 my $sth = $dbh->prepare(
