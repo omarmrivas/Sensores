@@ -98,13 +98,26 @@ public class BuscarPaciente : MonoBehaviour {
             {
                 string[] campos = download.text.Split(':');
                 PlayerPrefs.SetString(Estado.PacienteIdentificacion, campos[0]);
-                PlayerPrefs.SetString(Estado.PacienteApellidoP, campos[2]);
+				PlayerPrefs.SetString(Estado.PacienteCodigo, campos[1]);
+				PlayerPrefs.SetString(Estado.PacienteApellidoP, campos[2]);
                 PlayerPrefs.SetString(Estado.PacienteApellidoM, campos[3]);
                 PlayerPrefs.SetString(Estado.PacienteNombre, campos[4]);
+				PlayerPrefs.SetString(Estado.PacienteFechaNac, campos[5]);
+				PlayerPrefs.SetString(Estado.PacienteDireccion, campos[6]);
+				PlayerPrefs.SetString(Estado.PacienteTelefono, campos[7]);
+				PlayerPrefs.SetString(Estado.PacienteEmail, campos[8]);
+				PlayerPrefs.SetString(Estado.PacienteNoParejas, campos[9]);
+				PlayerPrefs.SetString(Estado.PacienteArea, campos[10]);
+				PlayerPrefs.SetString(Estado.PacienteGenero, campos[11]);
+				PlayerPrefs.SetString(Estado.PacienteIVSA, campos[12]);
+				PlayerPrefs.SetString(Estado.PacienteIdMPF, campos[13]);
 
-                yield return StartCoroutine(ECG_BPM_SPO2_GLU.crearExploracion());
-
-                Application.LoadLevel("Adquisicion");
+				if (PlayerPrefs.GetString(Estado.EXPLORAR_CONSULTAR) == Estado.EXPLORAR) {
+                	yield return StartCoroutine(ECG_BPM_SPO2_GLU.crearExploracion());
+                	Application.LoadLevel("Adquisicion");
+				} else if (PlayerPrefs.GetString(Estado.EXPLORAR_CONSULTAR) == Estado.CONSULTAR) {
+					Application.LoadLevel("Consulta");
+				}
             }
         }
     }

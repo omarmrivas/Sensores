@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public class Estado : MonoBehaviour {
     // Seguimiento de escenas
+	public static readonly string EXPLORAR_CONSULTAR = "EXPLORAR_CONSULTAR";
+	public static readonly string EXPLORAR = "EXPLORAR";
+	public static readonly string CONSULTAR = "CONSULTAR";
+
     private static Stack<string> escenas = new Stack<string>();
     public static void PushEscena(string escena)
     {
@@ -46,7 +50,8 @@ public class Estado : MonoBehaviour {
 
     // Agregar Paciente
     public static readonly string PacienteIdentificacion = "PacienteIdentificacion";
-    public static readonly string PacienteNombre = "PacienteNombre";
+	public static readonly string PacienteCodigo = "PacienteCodigo";
+	public static readonly string PacienteNombre = "PacienteNombre";
     public static readonly string PacienteApellidoP = "PacienteApellidoP";
     public static readonly string PacienteApellidoM = "PacienteApellidoM";
     public static readonly string PacienteFechaNac = "PacienteFechaNac";

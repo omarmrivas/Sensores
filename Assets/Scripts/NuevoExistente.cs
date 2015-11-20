@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class NuevoExistente : MonoBehaviour {
+	public Toggle Exploracion;
+	public Toggle Consulta;
 
 	// Use this for initialization
     void Start()
@@ -13,16 +16,25 @@ public class NuevoExistente : MonoBehaviour {
 
     public void nuevo()
     {
-//        PlayerPrefs.SetString(Estado.EstadoAnterior, "Pacientes");
-        Estado.PushEscena("Pacientes");
-        Application.LoadLevel("NuevoPaciente");
+		if (Exploracion.isOn) {
+			PlayerPrefs.SetString (Estado.EXPLORAR_CONSULTAR, Estado.EXPLORAR);
+		} else {
+			PlayerPrefs.SetString (Estado.EXPLORAR_CONSULTAR, Estado.CONSULTAR);
+		}
+
+		Estado.PushEscena ("Pacientes");
+		Application.LoadLevel ("NuevoPaciente");
     }
 
     public void existente()
     {
-//        PlayerPrefs.SetString(Estado.EstadoAnterior, "Pacientes");
-        Estado.PushEscena("Pacientes");
-        Application.LoadLevel("PacienteExistente");
+		if (Exploracion.isOn) {
+			PlayerPrefs.SetString (Estado.EXPLORAR_CONSULTAR, Estado.EXPLORAR);
+		} else {
+			PlayerPrefs.SetString (Estado.EXPLORAR_CONSULTAR, Estado.CONSULTAR);
+		}
+		Estado.PushEscena ("Pacientes");
+		Application.LoadLevel ("PacienteExistente");
     }
 
 }
